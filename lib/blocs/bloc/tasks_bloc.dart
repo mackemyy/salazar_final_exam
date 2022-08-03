@@ -15,16 +15,12 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
 
   void _onAddTask(AddTask event, Emitter<TasksState> emit) {
     final state = this.state;
-    emit(TasksState(
-      allTasks: List.from(state.allTasks)..add(event.task)
-      ));
+    emit(TasksState(allTasks: List.from(state.allTasks)..add(event.task)));
   }
 
   void _onUpdateTask(UpdateTask event, Emitter<TasksState> emit) {
-
-  }
-  void _onDeleteTask(DeleteTask event, Emitter<TasksState> emit) {
     
   }
 
+  void _onDeleteTask(DeleteTask event, Emitter<TasksState> emit) {}
 }
