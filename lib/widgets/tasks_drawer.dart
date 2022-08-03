@@ -46,18 +46,22 @@ class TasksDrawer extends StatelessWidget {
               },
             ),
             const Divider(),
-            GestureDetector(
-              onTap: () =>
-                  Navigator.of(context).pushNamed(RecycleBinScreen.path),
-              child: ListTile(
-                leading: const Icon(Icons.delete),
-                title: const Text('Recycle Bin'),
-                trailing: Text('${TestData.removedTasks.length}'),
-                onTap: () => Navigator.pushReplacementNamed(
-                  context,
-                  RecycleBinScreen.path,
-                ),
-              ),
+            BlocBuilder<TasksBloc, TasksState>(
+              builder: (context, state) {
+                return GestureDetector(
+                  onTap: () =>
+                      Navigator.of(context).pushNamed(RecycleBinScreen.path),
+                  child: ListTile(
+                    leading: const Icon(Icons.delete),
+                    title: const Text('Recycle Bin'),
+                    trailing: Text('${state.removedTasks.length}'),
+                    onTap: () => Navigator.pushReplacementNamed(
+                      context,
+                      RecycleBinScreen.path,
+                    ),
+                  ),
+                );
+              },
             ),
             const Divider(),
             const Expanded(child: SizedBox()),
