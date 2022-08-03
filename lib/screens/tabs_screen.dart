@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../blocs/bloc_exports.dart';
-import '../models/task.dart';
 import '../widgets/add_edit_task.dart';
 import '../widgets/tasks_drawer.dart';
 import 'completed_tasks_screen.dart';
@@ -47,7 +46,7 @@ class _TabsScreenState extends State<TabsScreen> {
 
     return BlocBuilder<TasksBloc, TasksState>(
       builder: (context, state) {
-        List<Task> tasksList = state.allTasks;
+        //List<Task> tasksList = state.allTasks;
         return Scaffold(
           appBar: AppBar(
             title: Text(selectedPage['title']),
