@@ -79,6 +79,8 @@ class CreateEditTask extends TasksEvent {
   List<Object> get props => [task];
 }
 
+class DeleteAllTasks extends TasksEvent { }
+
 class RestoreTask extends TasksEvent {
   final Task task;
   const RestoreTask({
