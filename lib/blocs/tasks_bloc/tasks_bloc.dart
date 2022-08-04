@@ -30,33 +30,6 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
     ));
   }
 
-  // void _onUpdateTask(UpdateTask event, Emitter<TasksState> emit) {
-  //   final state = this.state;
-  //   final task = event.task;
-  //   List<Task> pendingTasks = state.pendingTasks;
-  //   List<Task> completedTasks = state.completedTasks;
-  //   List<Task> favoriteTasks = state.pendingTasks;
-  //   task.isDone == false
-  //       ? {
-  //           pendingTasks = List.from(pendingTasks)..remove(task),
-  //           completedTasks = List.from(completedTasks)
-  //             ..insert(0, task.copyWith(isDone: true))
-  //         }
-  //       : {
-  //           completedTasks = List.from(completedTasks)..remove(task),
-  //           pendingTasks = List.from(pendingTasks)
-  //             ..insert(0, task.copyWith(isDone: false)),
-  //         };
-
-  //   emit(
-  //     TasksState(
-  //         pendingTasks: pendingTasks,
-  //         completedTasks: completedTasks,
-  //         favoriteTasks: state.favoriteTasks,
-  //         removedTasks: state.removedTasks),
-  //   );
-  // }
-
   void _onUpdateTask(UpdateTask event, Emitter<TasksState> emit) {
     final state = this.state;
     final task = event.task;
@@ -96,25 +69,6 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
       favoriteTasks: favoriteTasks,
       removedTasks: state.removedTasks,
     ));
-    // task.isDone == false
-    //     ? {
-    //         pendingTasks = List.from(pendingTasks)..remove(task),
-    //         completedTasks = List.from(completedTasks)
-    //           ..insert(0, task.copyWith(isDone: true))
-    //       }
-    //     : {
-    //         completedTasks = List.from(completedTasks)..remove(task),
-    //         pendingTasks = List.from(pendingTasks)
-    //           ..insert(0, task.copyWith(isDone: false)),
-    //       };
-
-    // emit(
-    //   TasksState(
-    //       pendingTasks: pendingTasks,
-    //       completedTasks: completedTasks,
-    //       favoriteTasks: state.favoriteTasks,
-    //       removedTasks: state.removedTasks),
-    // );
   }
 
   void _onDeleteTask(DeleteTask event, Emitter<TasksState> emit) {
