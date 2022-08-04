@@ -14,6 +14,8 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
     on<RemoveTask>(_onRemoveTask);
     on<MarkFavoriteOrUnfavoriteTask>(_onMarkFavoriteOrUnfavoriteTask);
     on<EditTask>(_onEditTask);
+    //on<CreateEditTask>(_addEditTask);
+    //on<Task>(addEditTask);
   }
 
   void _onAddTask(AddTask event, Emitter<TasksState> emit) {
@@ -121,9 +123,8 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
     final state = this.state;
     List<Task> favoriteTasks = state.favoriteTasks;
     if (event.oldTask.isFavorite == true) {
-      favoriteTasks
-        ..remove(event.oldTask)
-        ..insert(0, event.newTask);
+      favoriteTasks..remove(event.oldTask)
+      ..insert(0, event.newTask);
     }
     emit(TasksState(
       pendingTasks: List.from(state.pendingTasks)
@@ -134,6 +135,35 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
       removedTasks: state.removedTasks,
     ));
   }
+
+  // void _addEditTask(CreateEditTask event, Emitter<TasksState> emit) {
+  //   final state = this.state;
+  //   List<Task> pendingTasks = state.pendingTasks;
+  //   List<Task> completedTasks = state.completedTasks;
+  //   List<Task> favoriteTasks = state.favoriteTasks;
+  //   if (event.task.isDone == false) {
+  //     pendingTasks
+  //       ..remove(event.task)
+  //       ..insert(0, event.task);
+  //   } else if (event.task.isDone != false) {
+  //     completedTasks..remove(event.task);
+  //   }
+  // }
+
+  // void addEditTask(Task task) {
+  //   int index = state.tasks!.indexWhere((element) => element.id == task.id);
+  //   if (index == -1) {
+  //     emit(state.copyWith(
+  //       tasks: List.from(state.tasks!)..add(task),
+  //     ));
+  //   } else {
+  //     emit(state.copyWith(
+  //       tasks: List.from(state.tasks!)
+  //         ..removeAt(index)
+  //         ..insert(index, task),
+  //     ));
+  //   }
+  // }
 
   @override
   TasksState? fromJson(Map<String, dynamic> json) {
