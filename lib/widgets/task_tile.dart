@@ -16,11 +16,6 @@ class TaskTile extends StatelessWidget {
         ? context.read<TasksBloc>().add(DeleteTask(task: task))
         : context.read<TasksBloc>().add(RemoveTask(task: task));
   }
-  //  void likeOrDislikeCallback(BuildContext context, Task task) {
-  //   task.isDeleted!
-  //       ? context.read<TasksBloc>().add(MarkFavoriteOrUnfavoriteTask(task: task))
-  //       : context.read<TasksBloc>().add(RemoveTask(task: task));
-  // }
 
   _editTask(BuildContext context) {
     showModalBottomSheet(
