@@ -5,17 +5,15 @@ import '../screens/recycle_bin_screen.dart';
 import '../screens/tabs_screen.dart';
 import '../test_data.dart';
 
-class TasksDrawer extends StatefulWidget {
+class TasksDrawer extends StatelessWidget {
   const TasksDrawer({Key? key}) : super(key: key);
 
-  @override
-  State<TasksDrawer> createState() => _TasksDrawerState();
-}
-
-class _TasksDrawerState extends State<TasksDrawer> {
   _switchToDarkTheme(BuildContext context, bool isDarkTheme) {
     if (isDarkTheme) {
-    } else {}
+      context.read<SwitchBloc>().add(SwitchOnEvent());
+    } else {
+      context.read<SwitchBloc>().add(SwitchOffEvent());
+    }
   }
 
   @override
@@ -54,8 +52,8 @@ class _TasksDrawerState extends State<TasksDrawer> {
             BlocBuilder<TasksBloc, TasksState>(
               builder: (context, state) {
                 return GestureDetector(
-                  onTap: () =>
-                      Navigator.of(context).pushReplacementNamed(RecycleBinScreen.path),
+                  onTap: () => Navigator.of(context)
+                      .pushReplacementNamed(RecycleBinScreen.path),
                   child: ListTile(
                     leading: const Icon(Icons.delete),
                     title: const Text('Recycle Bin'),
@@ -70,13 +68,19 @@ class _TasksDrawerState extends State<TasksDrawer> {
             ),
             const Divider(),
             const Expanded(child: SizedBox()),
-            ListTile(
-              leading: Switch(
-                value: TestData.isDarkTheme,
-                onChanged: (newValue) => _switchToDarkTheme(context, newValue),
-              ),
-              title: const Text('Switch to Dark Theme'),
-              onTap: () => _switchToDarkTheme(context, !TestData.isDarkTheme),
+            BlocBuilder<SwitchBloc, SwitchState>(
+              builder: (context, state) {
+                return ListTile(
+                  leading: Switch(
+                    value: state.switchValue,
+                    onChanged: (newValue) => 
+                    _switchToDarkTheme(context, newValue),
+                  ),
+                  title: state.switchValue ? const Text('Switch to Light Theme') : const Text('Switch to Dark Theme'),
+                  onTap: () =>
+                      _switchToDarkTheme(context, !state.switchValue),
+                );
+              },
             ),
             const SizedBox(height: 10),
           ],
