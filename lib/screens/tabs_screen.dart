@@ -46,7 +46,6 @@ class _TabsScreenState extends State<TabsScreen> {
 
     return BlocBuilder<TasksBloc, TasksState>(
       builder: (context, state) {
-        //List<Task> tasksList = state.allTasks;
         return Scaffold(
           appBar: AppBar(
             title: Text(selectedPage['title']),
