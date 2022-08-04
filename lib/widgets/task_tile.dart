@@ -73,11 +73,12 @@ class TaskTile extends StatelessWidget {
           children: [
             Checkbox(
                 value: task.isDone,
-                onChanged: task.isDeleted!
-                    ? null
-                    : (value) {
+                onChanged: task.isDeleted == false
+                    ? (value) {
                         context.read<TasksBloc>().add(UpdateTask(task: task));
-                      }),
+                      }
+                    : null,
+            ),
             PopupMenu(
               task: task,
               editCallback: () {
@@ -86,7 +87,6 @@ class TaskTile extends StatelessWidget {
               },
               likeOrDislikeCallback: () {},
               cancelOrDeleteCallback: () {
-                //context.read<TasksBloc>().add(DeleteTask(task: task));
                 _removedOrDeleteTasks(context, task);
               },
               restoreTaskCallback: () => {},
