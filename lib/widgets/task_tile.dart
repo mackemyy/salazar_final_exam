@@ -16,6 +16,11 @@ class TaskTile extends StatelessWidget {
         ? context.read<TasksBloc>().add(DeleteTask(task: task))
         : context.read<TasksBloc>().add(RemoveTask(task: task));
   }
+  //  void likeOrDislikeCallback(BuildContext context, Task task) {
+  //   task.isDeleted!
+  //       ? context.read<TasksBloc>().add(MarkFavoriteOrUnfavoriteTask(task: task))
+  //       : context.read<TasksBloc>().add(RemoveTask(task: task));
+  // }
 
   _editTask(BuildContext context) {
     showModalBottomSheet(
@@ -72,21 +77,25 @@ class TaskTile extends StatelessWidget {
         Row(
           children: [
             Checkbox(
-                value: task.isDone,
-                onChanged: task.isDeleted!
-                    ? null
-                    : (value) {
-                        context.read<TasksBloc>().add(UpdateTask(task: task));
-                      }),
+              value: task.isDone,
+              onChanged: task.isDeleted == false
+                  ? (value) {
+                      context.read<TasksBloc>().add(UpdateTask(task: task));
+                    }
+                  : null,
+            ),
             PopupMenu(
               task: task,
               editCallback: () {
                 Navigator.pop(context);
                 _editTask(context);
               },
-              likeOrDislikeCallback: () {},
+              likeOrDislikeCallback: () {
+                context
+                    .read<TasksBloc>()
+                    .add(MarkFavoriteOrUnfavoriteTask(task: task));
+              },
               cancelOrDeleteCallback: () {
-                //context.read<TasksBloc>().add(DeleteTask(task: task));
                 _removedOrDeleteTasks(context, task);
               },
               restoreTaskCallback: () => {},
