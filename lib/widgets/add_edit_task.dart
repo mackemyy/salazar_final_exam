@@ -4,13 +4,10 @@ import 'package:flutter/material.dart';
 import '../models/task.dart';
 
 class AddEditTask extends StatefulWidget {
-  final Task? task, oldTask;
+  final Task? task;
 
-  const AddEditTask({
-    Key? key,
-    this.task,
-    this.oldTask
-  }) : super(key: key);
+
+  const AddEditTask({Key? key, this.task}) : super(key: key);
 
   @override
   State<AddEditTask> createState() => _AddEditTaskState();
@@ -90,24 +87,20 @@ class _AddEditTaskState extends State<AddEditTask> {
                   child: const Text('Cancel'),
                 ),
                 ElevatedButton(
-                  onPressed: _title.isNotEmpty && _description.isNotEmpty
+                  onPressed: _title.isNotEmpty && _description.isNotEmpty && widget.task == null
                       ? () {
-                          var editedTask = Task(
-                              title: _title,
-                              description: _description,
-                              isDone: false,
-                              );
-                            context.read<TasksBloc>().add(EditTask(oldTask: editedTask, newTask: editedTask));
-                            Navigator.pop(context);
-                          }
+                          var newTask =
+                              Task(title: _title, description: _description);
+                          context.read<TasksBloc>().add(AddTask(task: newTask));
+                          Navigator.pop(context);
+                        }
                       : () {
-                          var task = Task(
-                              title: _title,
-                              description: _description);
-                          context.read<TasksBloc>().add(AddTask(task: task));
+                          var editedTask =
+                              Task(title: _title, description: _description);
+                          context.read<TasksBloc>().add(EditTask(newTask: editedTask, oldTask: widget.task!));
                           Navigator.pop(context);
                         },
-                     
+                      
                   child: widget.task == null
                       ? const Text('Add')
                       : const Text('Save'),

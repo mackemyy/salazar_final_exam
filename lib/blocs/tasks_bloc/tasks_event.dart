@@ -69,16 +69,6 @@ class EditTask extends TasksEvent {
   List<Object> get props => [oldTask, newTask];
 }
 
-class CreateEditTask extends TasksEvent {
-  final Task task;
-  const CreateEditTask({
-    required this.task,
-  });
-
-  @override
-  List<Object> get props => [task];
-}
-
 class DeleteAllTasks extends TasksEvent { }
 
 class RestoreTask extends TasksEvent {
