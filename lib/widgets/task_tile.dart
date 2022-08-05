@@ -1,3 +1,4 @@
+import 'package:bloc_finals_exam/blocs/bloc_exports.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -66,7 +67,11 @@ class TaskTile extends StatelessWidget {
           children: [
             Checkbox(
                 value: task.isDone,
-                onChanged: task.isDeleted! ? null : (value) {}),
+                onChanged: task.isDeleted!
+                    ? null
+                    : (value) {
+                        context.read<TasksBloc>().add(UpdateTask(task: task));
+                      }),
             PopupMenu(
               task: task,
               editCallback: () {
@@ -74,7 +79,9 @@ class TaskTile extends StatelessWidget {
                 _editTask(context);
               },
               likeOrDislikeCallback: () {},
-              cancelOrDeleteCallback: () {},
+              cancelOrDeleteCallback: () {
+                context.read<TasksBloc>().add(DeleteTask(task: task));
+              },
               restoreTaskCallback: () => {},
             ),
           ],
