@@ -38,7 +38,7 @@ class TasksDrawer extends StatelessWidget {
                     leading: const Icon(Icons.folder_special),
                     title: const Text('My Tasks'),
                     trailing: Text(
-                      '${state.allTasks.length} | ${TestData.completedTasks.length}',
+                      '${state.pendingTasks.length} | ${state.completedTasks.length}',
                     ),
                     onTap: () => Navigator.pushReplacementNamed(
                       context,
