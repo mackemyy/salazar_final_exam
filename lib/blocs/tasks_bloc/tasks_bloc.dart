@@ -33,7 +33,7 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
     final task = event.task;
     List<Task> pendingTasks = state.pendingTasks;
     List<Task> completedTasks = state.completedTasks;
-    List<Task> favoriteTasks = state.pendingTasks;
+    List<Task> favoriteTasks = state.favoriteTasks;
     if (task.isDone == false) {
       if (task.isFavorite == false) {
         pendingTasks = List.from(pendingTasks)..remove(task);
